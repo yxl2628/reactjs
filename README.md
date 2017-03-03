@@ -29,6 +29,8 @@ React是关于构造可重用组件的，实际上，使用React你做的仅仅�
 
 为什么通过这多一层的Virtual DOM操作就能更快呢？ 这是因为React有个diff算法，更新Virtual DOM并不保证马上影响真实的DOM，React会等到事件循环结束，然后利用这个diff算法，通过当前新的dom表述与之前的作比较，计算出最小的步骤更新真实的DOM。
 
+![](assets/35008-0f4e9a2fb5c19485.png)
+
 ##### Components 组件
 
 在DOM树上的节点被称为元素，在这里则不同，Virtual DOM上称为commponent。Virtual DOM的节点就是一个完整抽象的组件，它是由commponents组成。
