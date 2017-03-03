@@ -17,7 +17,7 @@ Facebook认为MVC无法满足他们的扩展需求，由于他们非常巨大的
 在数据发生变化的时候，React从概念上讲与点击了F5一样，实际上它仅仅是更新了变化的一部分而已。
 React是关于构造可重用组件的，实际上，使用React你做的仅仅是构建组建。通过封装，使得组件代码复用、测试以及关注点分离更加容易。
 
-另外在React官网上，通过《Why did we build React?》[为什么我们要建造React](https://github.com/yxl2628/reactjs/blob/master/Why%20did%20we%20build%20React.md)的文档中还可以了解到以下四点：
+另外在React官网上，通过《Why did we build React?》[为什么我们要建造React](https://github.com/yxl2628/reactjs/blob/master/Why_did_we_build_React.md)的文档中还可以了解到以下四点：
 - React不是一个MVC框架
 - React不使用模板
 - 响应式更新非常简单
