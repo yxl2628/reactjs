@@ -61,7 +61,7 @@ ECMAScript 6.0（以下简称 ES6）是 JavaScript 语言的下一代标准，�
   > Generator 返回的是迭代器，通过 yield 关键字实现暂停功能。
 
 ### 代码处理
-- ##### Babel
+- ##### Babel  
 Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。这意味着，你可以现在就用ES6编写程序，而不用担心现有环境是否支持。下面是一个例子。
 ``` javascript
 // 转码前
@@ -74,5 +74,6 @@ input.map(function (item) {
 ```
 上面的原始代码用了箭头函数，这个特性还没有得到广泛支持，Babel将其转为普通函数，就能在现有的JavaScript环境执行了。
 
-- ##### Less或Sass
-- ##### Webpack
+- ##### Less或Sass   
+
+- ##### Webpack   
