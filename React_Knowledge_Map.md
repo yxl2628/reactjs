@@ -61,7 +61,7 @@ ECMAScript 6.0（以下简称 ES6）是 JavaScript 语言的下一代标准，�
   > Generator 返回的是迭代器，通过 yield 关键字实现暂停功能。
 
 ### 代码处理
-- ##### Babel   
+- ##### Babel转码   
 Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。这意味着，你可以现在就用ES6编写程序，而不用担心现有环境是否支持。下面是一个例子。
 ``` javascript
 // 转码前
@@ -74,36 +74,37 @@ input.map(function (item) {
 ```
 上面的原始代码用了箭头函数，这个特性还没有得到广泛支持，Babel将其转为普通函数，就能在现有的JavaScript环境执行了。
 
-- ##### Less或Sass   
-  1. less   
+- ##### Less或Sass      
   Less 是一门 CSS 预处理语言，它扩展了 CSS 语言，增加了变量、Mixin、函数等特性，使 CSS 更易维护和扩展。
+  SASS是一种CSS的开发工具，提供了许多便利的写法，大大节省了设计者的时间，使得CSS的开发，变得简单和可维护。
   例子:
-  ``` less
-  @base: #f938ab;
-  .box-shadow(@style, @c) when (iscolor(@c)) {
-    -webkit-box-shadow: @style @c;
-    box-shadow:         @style @c;
-  }
-  .box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
-    .box-shadow(@style, rgba(0, 0, 0, @alpha));
-  }
-  .box {
-    color: saturate(@base, 5%);
-    border-color: lighten(@base, 30%);
-    div { .box-shadow(0 0 5px, 30%) }
-  }
-  ```
-  输出:
-  ``` css
-  .box {
-    color: #fe33ac;
-    border-color: #fdcdea;
-  }
-  .box div {
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-  }
-  ```
+    ``` less
+    @base: #f938ab;
+    .box-shadow(@style, @c) when (iscolor(@c)) {
+      -webkit-box-shadow: @style @c;
+      box-shadow:         @style @c;
+    }
+    .box-shadow(@style, @alpha: 50%) when (isnumber(@alpha)) {
+      .box-shadow(@style, rgba(0, 0, 0, @alpha));
+    }
+    .box {
+      color: saturate(@base, 5%);
+      border-color: lighten(@base, 30%);
+      div { .box-shadow(0 0 5px, 30%) }
+    }
+    ```
+    输出:
+    ``` css
+    .box {
+      color: #fe33ac;
+      border-color: #fdcdea;
+    }
+    .box div {
+      -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    ```
+    两种语言都可以加快css的开发,其中less是JavaScript解析,sass是通过ruby解析,目前项目中用的是less,但是只是用在了开发阶段,所以并不存在放到浏览器解析,造成的性能问题。
 
 
 - ##### Webpack   
