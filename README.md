@@ -9,19 +9,19 @@
 
 ### React核心知识
 - React基础
-  1. React组件
-  2. 多嵌套组件
-  3. JSX内置表达式
-  4. 生命周期
+  - React组件
+  - 多嵌套组件
+  - JSX内置表达式
+  - 生命周期
 - React属性与事件  
-  1. State属性
-  2. props属性
-  3. 事件与数据双向绑定
-  4. 可复用组件
-  5. 组件Refs
+  - State属性
+  - props属性
+  - 事件与数据双向绑定
+  - 可复用组件
+  - 组件Refs
 - React样式
-  1. style
-  2. css
+  - style
+  - css
 
 ### [React技术栈](https://github.com/yxl2628/reactjs/blob/master/React_Technology_Ttack.md)
 - React Router
