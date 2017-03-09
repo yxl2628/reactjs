@@ -23,7 +23,7 @@ React是关于构造可重用组件的，实际上，使用React你做的仅仅�
 - 响应式更新非常简单
 - HTML5仅仅是个开始
 
-#### React主要的原理
+### React主要的原理
 ##### Virtual DOM 虚拟DOM
 传统的web应用，操作DOM一般是直接更新操作的，但是我们知道DOM更新通常是比较昂贵的。而React为了尽可能减少对DOM的操作，提供了一种不同的而又强大的方式来更新DOM，代替直接的DOM操作。就是Virtual DOM,一个轻量级的虚拟的DOM，就是React抽象出来的一个对象，描述dom应该什么样子的，应该如何呈现。通过这个Virtual DOM去更新真实的DOM，由这个Virtual DOM管理真实DOM的更新。
 
@@ -39,3 +39,11 @@ React是关于构造可重用组件的，实际上，使用React你做的仅仅�
 
 ##### State 和 Render
 React是如何呈现真实的DOM，如何渲染组件，什么时候渲染，怎么同步更新的，这就需要简单了解下State和Render了。state属性包含定义组件所需要的一些数据，当数据发生变化时，将会调用Render重现渲染，这里只能通过提供的setState方法更新数据。
+
+
+### [React虚拟DOM的概念](https://github.com/yxl2628/reactjs/blob/master/React_DOM.md)
+> 在Web开发中，需要将数据的变化实时反映到UI上，这时就需要对DOM进行操作，但是复杂或频繁的DOM操作通常是性能瓶颈产生的原因，为此，React引入了虚拟DOM（Virtual DOM）的机制。   
+1. 什么是虚拟DOM？   
+2. 虚拟DOM VS 直接操作原生DOM？   
+3. 虚拟DOM VS MVVM？   
+4. 对React虚拟DOM的误解   
