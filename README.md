@@ -7,6 +7,14 @@
 ### [React前置知识](https://github.com/yxl2628/reactjs/blob/master/React_Knowledge_Map.md)
 > React学习的前置知识,以及React本身的技术全家桶
 
+- html5
+- css3
+- es6
+- Node.js&NPM
+- Babel
+- CSS Modules(Less、Sass)
+- Webpack
+
 ### React核心知识
 - React基础
   - React组件
