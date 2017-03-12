@@ -16,6 +16,9 @@
 - Webpack
 
 ### React核心知识
+- [安装React](https://github.com/yxl2628/reactjs/blob/master/docs/Insallation.md)
+  > 我们使用官方提供的安装方式来安装React，这种方式的好处是我们会自动集成webpack react bable eslint，减少了我们自己搭建开发环境的时间，让我们更加专注于react开发，而且后期我们会使用阿里的dva来实战开发。
+
 - React基础
   - React组件
   - 多嵌套组件
