@@ -20,7 +20,7 @@
   > 我们使用官方提供的安装方式来安装React，这种方式的好处是我们会自动集成webpack react bable eslint，减少了我们自己搭建开发环境的时间，让我们更加专注于react开发，而且后期我们会使用阿里的dva来实战开发。
 
 - React基础
-  - [JSX内置表达式](https://github.com/yxl2628/reactjs/blob/master/docs/basic/React_JSX.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/jsxad)】
+  - [JSX内置表达式](https://github.com/yxl2628/reactjs/blob/master/docs/basic/React_JSX.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/jsx)】
   - [React组件](https://github.com/yxl2628/reactjs/blob/master/docs/basic/React_Component.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/component)】
   - 多嵌套组件
   - 生命周期
