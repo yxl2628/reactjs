@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './component/App';
+import HelloWorld from './component/HelloWorld';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <HelloWorld name="yang.xiaolong" />,
   document.getElementById('root')
 );
