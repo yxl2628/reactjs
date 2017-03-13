@@ -99,4 +99,4 @@ ReactDOM.render(
 > 注意:
 由于 JSX 就是 JavaScript，一些标识符像 class 和 for 不建议作为 XML 属性名。作为替代，React DOM 使用 className 和 htmlFor 来做对应的属性。
 
-[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/jsxad)
+[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/jsx)
