@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js表达式</title>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script src="./assets/js/react.js" charset="utf-8"></script>
+    <script src="./assets/js/react-dom.js" charset="utf-8"></script>
+    <script src="./assets/js/babel.js" charset="utf-8"></script>
+    <script type="text/babel">
+        ReactDOM.render(
+        <div>
+            <h1>使用{}来完成简单运算：{1+1}</h1>
+            <h1>可以使用三目运算符：{1 == 1 ? 'True!' : 'False'}</h1>
+        </div>
+        , document.getElementById('example') );
+    </script>
+</body>
+
+</html>

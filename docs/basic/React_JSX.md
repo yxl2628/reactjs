@@ -5,6 +5,9 @@ JSX 是一个看起来很像 XML 的 JavaScript 语法扩展。
 - JSX 执行更快，因为它在编译为 JavaScript 代码后进行了优化。
 - 它是类型安全的，在编译过程中就能发现错误。
 - 使用 JSX 编写模板更加简单快速。
+
+需要注意的是，如果不是通过webpack打包，而是通过html引入的话，script 必须使用`<script type="javasript/jsx"></javasript>`才能让html正确的加载到react的语法，当然，为了更好的体验，本章我们特意使用了html引入的方式来学习，而不是webpack打包，同时需要注意的是，我们并没有使用`<script type="javasript/jsx"></javasript>`,而是使用了`<script  type="text/babel"></script>`，是因为既然我们学习了ES6的语法，那么就尽可能的使用它来记住它。
+
 ### 使用JSX
 JSX 看起来类似 HTML ，我们可以看下实例:
 ```JavaScript
@@ -12,7 +15,7 @@ ReactDOM.render(
     <div>
     <h1>React教程</h1>
     <h2>欢迎学习 React</h2>
-    <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库!</p>
+    <p data-myattribute = "somevalue">这是属于React的Hello World!</p>
     </div>
     ,
     document.getElementById('example')
@@ -82,7 +85,6 @@ ReactDOM.render(
 ### 数组
 JSX 允许在模板中插入数组，数组会自动展开所有成员：
 ```JavaScript
-注释需要写在花括号中，实例如下：
 var arr = [
   <h1>React教程</h1>,
   <h2>学的不仅是技术，更是梦想！</h2>,
@@ -92,6 +94,7 @@ ReactDOM.render(
   document.getElementById('example')
 );
 ```
+***
 
 > 注意:
 由于 JSX 就是 JavaScript，一些标识符像 class 和 for 不建议作为 XML 属性名。作为替代，React DOM 使用 className 和 htmlFor 来做对应的属性。
