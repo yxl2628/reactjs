@@ -17,7 +17,7 @@ Facebook认为MVC无法满足他们的扩展需求，由于他们非常巨大的
 在数据发生变化的时候，React从概念上讲与点击了F5一样，实际上它仅仅是更新了变化的一部分而已。
 React是关于构造可重用组件的，实际上，使用React你做的仅仅是构建组建。通过封装，使得组件代码复用、测试以及关注点分离更加容易。
 
-另外在React官网上，通过《Why did we build React?》[为什么我们要建造React](Why_did_we_build_React.md)的文档中还可以了解到以下四点：
+另外在React官网上，通过《Why did we build React?》[为什么我们要建造React](https://github.com/yxl2628/reactjs/blob/master/Why_did_we_build_React.md)的文档中还可以了解到以下四点：
 - React不是一个MVC框架
 - React不使用模板
 - 响应式更新非常简单
@@ -41,7 +41,7 @@ React是关于构造可重用组件的，实际上，使用React你做的仅仅�
 React是如何呈现真实的DOM，如何渲染组件，什么时候渲染，怎么同步更新的，这就需要简单了解下State和Render了。state属性包含定义组件所需要的一些数据，当数据发生变化时，将会调用Render重现渲染，这里只能通过提供的setState方法更新数据。
 
 
-### [React虚拟DOM的概念](React_DOM.md)
+### [React虚拟DOM的概念](https://github.com/yxl2628/reactjs/blob/master/React_DOM.md)
 > 在Web开发中，需要将数据的变化实时反映到UI上，这时就需要对DOM进行操作，但是复杂或频繁的DOM操作通常是性能瓶颈产生的原因，为此，React引入了虚拟DOM（Virtual DOM）的机制。   
 1. 什么是虚拟DOM？   
 2. 虚拟DOM VS 直接操作原生DOM？   
