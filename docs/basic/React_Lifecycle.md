@@ -168,3 +168,4 @@ export default UnMounted;
 通过控制isUnMounted就可以控制TextComponent的加载与移除，在移除TextComponent之前，我们就会看到`Component WILL UNMOUNT!`打印在控制台了
 
 ***
+[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/lifecycle
