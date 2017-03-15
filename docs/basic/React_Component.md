@@ -129,3 +129,23 @@ ReactDOM.render(
 );
 ```
 [查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/multiple_component)
+
+### 组件的三种写法
+上述代码，我们只使用了一种形式，但是实际上，从0.14版本以后，React官方推出了一种新的组件写法：无状态组件，写法如下：
+```JavaScript
+import React from 'react';
+import FirstChildComponent from './FirstChildComponent';
+import SecondChildComponent from './SecondChildComponent';
+
+const ParentComponent = () =>(
+  <div>
+    <h1>这是父组件的页面</h1>
+    <h3>这里嵌套了第一个子组件：</h3>
+    <FirstChildComponent name="父组件的值-1" />
+    <h3>这里嵌套了第二个子组件：</h3>
+    <SecondChildComponent name="父组件的值-2" />
+  </div>
+)
+export default ParentComponent;
+```
+这种写法不仅减少了大量冗余的代码，精简至只有一个render方法，大大的增强了编写一个组件的便利，而且还会提升React的性能，关于三种写法的详细信息，可以查看[《React创建组件的三种方式及其区别》](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/React_Component.md)
