@@ -27,7 +27,7 @@
 - React属性与事件  
   - [State属性](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/react_state.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/state)】
   - [props属性](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/react_props.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/props)】
-    - [可复用组件](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/reusable_components.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/reusable_components)】
+  - [可复用组件](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/reusable_components.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/reusable_components)】
   - [事件与数据双向绑定](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/event_data_bind.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/bind)】
   - [组件Refs](https://github.com/yxl2628/reactjs/blob/master/docs/props&state/react_refs.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/refs)】
 - React样式
