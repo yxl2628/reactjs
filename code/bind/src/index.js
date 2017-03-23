@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HelloWorld from './component/HelloWorld';
+import CreateClassComponent from './component/CreateClassComponent';
+import ComponentComponent from './component/ComponentComponent';
 import './index.css';
 
 ReactDOM.render(
-  <HelloWorld name="yang.xiaolong" />,
+  <div>
+    <CreateClassComponent />
+    <br />
+    <ComponentComponent />
+  </div>,
   document.getElementById('root')
 );
