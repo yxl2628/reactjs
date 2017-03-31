@@ -232,3 +232,6 @@ React.createClass在创建组件时可以使用mixins属性，以数组的形式
   除此之外，创建组件的形式选择还应该根据下面来决定：
     1. 只要有可能，尽量使用无状态组件创建形式。
     2. 否则（如需要state、生命周期方法等），使用`React.Component`这种es6形式创建组件。
+
+***
+[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/react_router)
