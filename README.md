@@ -5,7 +5,7 @@
 > 介绍一下为什么我们要选用React,以及React的基础知识及原理
 
 ### [React前置知识](https://github.com/yxl2628/reactjs/blob/master/React_Knowledge_Map.md)
-> React学习的前置知识,以及React本身的技术全家桶,以下教程链接到了外网，但是以后我会慢慢更新成自己写的
+> React学习的前置知识,以及React本身的技术全家桶
 
 - [html5](http://www.runoob.com/html/html5-intro.html)
 - [css3](http://www.runoob.com/css3/css3-tutorial.html)
@@ -14,6 +14,8 @@
 - [Babel](http://www.ruanyifeng.com/blog/2016/01/babel.html)
 - [CSS Modules(Less、Sass)](http://www.bootcss.com/p/lesscss/)
 - [Webpack](http://www.jianshu.com/p/42e11515c10f)
+
+上面的是前端的基础教程，暂时链接到了外网，但是以后会慢慢更新成自己写的
 
 ### React核心知识
 - [安装React](https://github.com/yxl2628/reactjs/blob/master/docs/Insallation.md)
