@@ -35,7 +35,7 @@
   - [css](https://github.com/yxl2628/reactjs/blob/master/docs/style&css/react_css.md) 【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/css)】
 
 ### [React技术栈](https://github.com/yxl2628/reactjs/blob/master/React_Technology_Ttack.md)
-- [router](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/React_Component.md)【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/react_router)】
+- [router](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/React_Router.md)【[查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/react_router)】
 - Redux
 - Redux-saga
 - DVA  
