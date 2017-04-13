@@ -31,7 +31,7 @@ React 只是 DOM 的一个抽象层，并不是 Web 应用的完整解决方案�
 2. 所有的状态，保存在一个对象里面。
 
 ### 基本概念
-- Store
+1. Store   
 Store 就是保存数据的地方，你可以把它看成一个容器。整个应用只能有一个 Store。
 Redux 提供createStore这个函数，用来生成 Store。
 ```javascript
@@ -40,7 +40,7 @@ const store = createStore(fn);
 ```
 上面代码中，createStore函数接受另一个函数作为参数，返回新生成的 Store 对象。
 
-- state
+1. state   
 Store对象包含所有数据。如果想得到某个时点的数据，就要对 Store 生成快照。这种时点的数据集合，就叫做 State。
 当前时刻的 State，可以通过store.getState()拿到。
 ```javascript
@@ -51,7 +51,7 @@ const state = store.getState();
 ```
 Redux 规定， 一个 State 对应一个 View。只要 State 相同，View 就相同。你知道 State，就知道 View 是什么样，反之亦然。
 
-- action
+3. action   
 State 的变化，会导致 View 的变化。但是，用户接触不到 State，只能接触到 View。所以，State 的变化必须是 View 导致的。Action 就是 View 发出的通知，表示 State 应该要发生变化了。
 Action 是一个对象。其中的type属性是必须的，表示 Action 的名称。其他属性可以自由设置，社区有一个规范可以参考。
 ```javascript
@@ -63,7 +63,7 @@ const action = {
 上面代码中，Action 的名称是ADD_TODO，它携带的信息是字符串Learn Redux。
 可以这样理解，Action 描述当前发生的事情。改变 State 的唯一办法，就是使用 Action。它会运送数据到 Store。
 
-- Action Creator
+4. Action Creator   
 View 要发送多少种消息，就会有多少种 Action。如果都手写，会很麻烦。可以定义一个函数来生成 Action，这个函数就叫 Action Creator。
 ```javascript
 const ADD_TODO = '添加 TODO';
@@ -79,7 +79,7 @@ const action = addTodo('Learn Redux');
 ```
 上面代码中，addTodo函数就是一个 Action Creator。
 
-- store.dispatch()
+5. store.dispatch()   
 store.dispatch()是 View 发出 Action 的唯一方法。
 ```javascript
 import { createStore } from 'redux';
@@ -96,7 +96,7 @@ store.dispatch({
 store.dispatch(addTodo('Learn Redux'));
 ```
 
-- Reducer
+6. Reducer   
 Store 收到 Action 以后，必须给出一个新的 State，这样 View 才会发生变化。这种 State 的计算过程就叫做 Reducer。
 Reducer 是一个函数，它接受 Action 和当前 State 作为参数，返回一个新的 State。
 ```javascript
@@ -105,25 +105,40 @@ const reducer = function (state, action) {
   return new_state;
 };
 ```
-整个应用的初始状态，可以作为 State 的默认值。下面是一个实际的例子。
+7.Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
+纯函数是函数式编程的概念，必须遵守以下一些约束。
+  1. 不得改写参数
+  2. 不能调用系统 I/O 的API
+  3. 不能调用Date.now()或者Math.random()等不纯的方法，因为每次会得到不一样的结果
+由于 Reducer 是纯函数，就可以保证同样的State，必定得到同样的 View。但也正因为这一点，Reducer 函数里面不能改变 State，必须返回一个全新的对象，请参考下面的写法。
 ```javascript
-const defaultState = 0;
-const reducer = (state = defaultState, action) => {
-  switch (action.type) {
-    case 'ADD':
-      return state + action.payload;
-    default:
-      return state;
-  }
-};
-const state = reducer(1, {
-  type: 'ADD',
-  payload: 2
-});
+// State 是一个对象
+function reducer(state, action) {
+  return { ...state, ...newState };
+}
+// State 是一个数组
+function reducer(state, action) {
+  return [...state, newItem];
+}
 ```
-上面代码中，reducer函数收到名为ADD的 Action 以后，就返回一个新的 State，作为加法的计算结果。其他运算的逻辑（比如减法），也可以根据 Action 的不同来实现。
-实际应用中，Reducer 函数不用像上面这样手动调用，store.dispatch方法会触发 Reducer 的自动执行。为此，Store 需要知道 Reducer 函数，做法就是在生成 Store 的时候，将 Reducer 传入createStore方法。
+最好把 State 对象设成只读。你没法改变它，要得到新的 State，唯一办法就是生成一个新对象。这样的好处是，任何时候，与某个 View 对应的 State 总是一个不变的对象。
+
+8. store.subscribe()   
+Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。
 ```javascript
 import { createStore } from 'redux';
 const store = createStore(reducer);
+
+store.subscribe(listener);
 ```
+显然，只要把 View 的更新函数（对于 React 项目，就是组件的render方法或setState方法）放入listen，就会实现 View 的自动渲染。
+store.subscribe方法返回一个函数，调用这个函数就可以解除监听。
+```javascript
+let unsubscribe = store.subscribe(() =>
+  console.log(store.getState())
+);
+
+unsubscribe();
+```
+
+### Store 的实现
