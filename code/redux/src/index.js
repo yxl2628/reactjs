@@ -1,9 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import HelloWorld from './component/HelloWorld';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import Counter from './component/Counter'
+import counter from './reducers'
 
-ReactDOM.render(
-  <HelloWorld name="yang.xiaolong" />,
+const store = createStore(counter);
+
+const render = () => ReactDOM.render(
+  <Counter
+    value={store.getState()}
+    onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
+    onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+  />,
   document.getElementById('root')
 );
+
+render();
+store.subscribe(render);

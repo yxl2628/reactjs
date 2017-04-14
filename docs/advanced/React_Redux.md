@@ -105,7 +105,7 @@ const reducer = function (state, action) {
   return new_state;
 };
 ```
-#### Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
+Reducer 函数最重要的特征是，它是一个纯函数。也就是说，只要是同样的输入，必定得到同样的输出。
 纯函数是函数式编程的概念，必须遵守以下一些约束。
   1. 不得改写参数
   2. 不能调用系统 I/O 的API
@@ -142,3 +142,145 @@ unsubscribe();
 ```
 
 ### Store 的实现
+Store 提供了三个方法：
+store.getState()
+store.dispatch()
+store.subscribe()
+可以通过以下办法，得到这三个方法：
+```javascript
+import { createStore } from 'redux';
+let { subscribe, dispatch, getState } = createStore(reducer);
+```
+
+### Reducer 的拆分
+Reducer 函数负责生成 State。由于整个应用只有一个 State 对象，包含所有数据，对于大型应用来说，这个 State 必然十分庞大，导致 Reducer 函数也十分庞大。
+比如：
+```javascript
+const chatReducer = (state = defaultState, action = {}) => {
+  const { type, payload } = action;
+  switch (type) {
+    case ADD_CHAT:
+      return Object.assign({}, state, {
+        chatLog: state.chatLog.concat(payload)
+      });
+    case CHANGE_STATUS:
+      return Object.assign({}, state, {
+        statusMessage: payload
+      });
+    case CHANGE_USERNAME:
+      return Object.assign({}, state, {
+        userName: payload
+      });
+    default: return state;
+  }
+};
+```
+上面代码中，三种 Action 分别改变 State 的三个属性。
+ADD_CHAT：chatLog属性
+CHANGE_STATUS：statusMessage属性
+CHANGE_USERNAME：userName属性
+这三个属性之间没有联系，这提示我们可以把 Reducer 函数拆分。不同的函数负责处理不同属性，最终把它们合并成一个大的 Reducer 即可。
+```javascript
+const chatReducer = (state = defaultState, action = {}) => {
+  return {
+    chatLog: chatLog(state.chatLog, action),
+    statusMessage: statusMessage(state.statusMessage, action),
+    userName: userName(state.userName, action)
+  }
+};
+```
+上面代码中，Reducer 函数被拆成了三个小函数，每一个负责生成对应的属性。
+这样一拆，Reducer 就易读易写多了。而且，这种拆分与 React 应用的结构相吻合：一个 React 根组件由很多子组件构成。这就是说，子组件与子 Reducer 完全可以对应。
+Redux 提供了一个combineReducers方法，用于 Reducer 的拆分。你只要定义各个子 Reducer 函数，然后用这个方法，将它们合成一个大的 Reducer。
+```javascript
+import { combineReducers } from 'redux';
+
+const chatReducer = combineReducers({
+  chatLog,
+  statusMessage,
+  userName
+})
+
+export default todoApp;
+```
+上面的代码通过combineReducers方法将三个子 Reducer 合并成一个大的函数。
+这种写法有一个前提，就是 State 的属性名必须与子 Reducer 同名。如果不同名，就要采用下面的写法。
+总之，combineReducers()做的就是产生一个整体的 Reducer 函数。该函数根据 State 的 key 去执行相应的子 Reducer，并将返回结果合并成一个大的 State 对象。
+可以把所有子 Reducer 放在一个文件里面，然后统一引入。
+```javascript
+import { combineReducers } from 'redux'
+import * as reducers from './reducers'
+
+const reducer = combineReducers(reducers)
+```
+
+### 工作流程
+![](../../assets/redux.jpg)
+首先，用户发出 Action。
+`store.dispatch(action);`
+然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action。 Reducer 会返回新的 State 。
+`let nextState = todoApp(previousState, action);`
+State 一旦有变化，Store 就会调用监听函数。
+`store.subscribe(listener);`
+listener可以通过store.getState()得到当前状态。如果使用的是 React，这时可以触发重新渲染 View。
+
+### 代码示例
+下面是一个简单的计数器，唯一的作用就是把参数value的值，显示在网页上。Store 的监听函数设置为render，每次 State 的变化都会导致网页重新渲染。
+```javascript
+//index.js
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore } from 'redux'
+import Counter from './component/Counter'
+import counter from './reducers'
+
+const store = createStore(counter);
+
+const render = () => ReactDOM.render(
+  <Counter
+    value={store.getState()}
+    onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
+    onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+  />,
+  document.getElementById('root')
+);
+
+render();
+store.subscribe(render);
+```
+```javascript
+//reducers/index.js
+export default (state = 0, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1
+    case 'DECREMENT':
+      return state - 1
+    default:
+      return state
+  }
+}
+```
+```javascript
+//component/Counter.js
+import React, { Component, PropTypes } from 'react'
+
+class Counter extends Component {
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    onIncrement: PropTypes.func.isRequired,
+    onDecrement: PropTypes.func.isRequired
+  }
+
+  render() {
+    const { value, onIncrement, onDecrement } = this.props
+    return (
+      <p>
+        Clicked: {value} times{' '}<button onClick={onIncrement}>+</button>{' '}<button onClick={onDecrement}>-</button>
+      </p>
+    )
+  }
+}
+
+export default Counter
+```
