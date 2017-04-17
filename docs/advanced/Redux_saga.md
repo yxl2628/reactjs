@@ -1,4 +1,4 @@
-# React_saga
+# Redux_saga
 redux-saga 是一个 redux 中间件，它具有如下特性：
 - 集中处理 redux 副作用问题。
 - 被实现为 generator 。
