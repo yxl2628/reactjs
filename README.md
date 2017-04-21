@@ -45,3 +45,4 @@
 
 ### dva实战
 - [dva创建工程](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/dva_example.md#搭建工程)
+- [mock数据](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/dva_example.md#mock数据)
