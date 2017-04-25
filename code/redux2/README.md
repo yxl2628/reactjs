@@ -1,4 +1,4 @@
-# React redux 在组件中的使用
+# React-redux
  
 运行 开发模式
 ### `npm start`
