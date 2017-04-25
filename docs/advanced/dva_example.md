@@ -118,3 +118,37 @@
   };
   ```
   接下来，在 http://127.0.0.1:8000/api/user/getList ,即可看到数据了
+
+### 完成User组件
+- 生成user路由
+
+  使用`dva g route users`,生成users路由。
+  打开浏览器：http://127.0.0.1:8000/#/users，即可看到users。
+  使用脚手架工具创建的路由，工具会自动将src/router.js补全，免去了我们自己创建的繁琐。
+
+- 增加user接口访问
+  ```JavaScript
+  import request from '../utils/request';
+
+  export function fetch({ page = 1 }) {
+    return request(`/api/user/getList?page=${page}`);
+  }
+  ```
+
+- 构造 users model 和 service
+
+  使用`dva g model users`生成model:
+  ```JavaScript
+  export default {
+    namespace: 'users',
+    state: {},
+    reducers: {},
+    effects: {},
+    subscriptions: {},
+  };
+  ```
+  如上所示，dva集成并封装了redux，将reducers、effects、subscriptions集成到了同一个地方，方便开发维护。
+  接下来完善model：
+  ```JavaScript
+
+  ```

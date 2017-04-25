@@ -1,4 +1,6 @@
 # React props
+
+> 运行前需要安装node_modules，npm install
  
 运行 开发模式
 ### `npm start`

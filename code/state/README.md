@@ -1,5 +1,7 @@
 # React state
- 
+
+> 运行前需要安装node_modules，npm install
+
 运行 开发模式
 ### `npm start`
 运行 自动化测试
