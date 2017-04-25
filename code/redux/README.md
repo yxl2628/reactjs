@@ -1,4 +1,4 @@
-# React redux
+# Redux
  
 运行 开发模式
 ### `npm start`
