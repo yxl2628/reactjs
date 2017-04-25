@@ -98,13 +98,14 @@
   export default {
     userList:Mock.mock({
         code:"0000",
-        'list|10-50': [{
-            'id': '@guid',
+        'data|10': [{
+            'id|+1': '@guid',
             'name':'@cname',
             'email':'@email',
             'adress':'@city(true)',
             'zip':'@zip'
-        }]
+        }],
+        total:58
     })
   };
   ```
@@ -150,5 +151,126 @@
   如上所示，dva集成并封装了redux，将reducers、effects、subscriptions集成到了同一个地方，方便开发维护。
   接下来完善model：
   ```JavaScript
+  import * as usersService from '../services/users';
 
+  export default {
+    namespace: 'users',
+    state: {
+      list: [],
+      total: null,
+      page: null,
+    },
+    reducers: {
+      save(state, { payload: { data: list, total, page } }) {
+         return { ...state, list, total, page };
+      },
+    },
+    effects: {
+      *fetch({ payload: { page = 1 } }, { call, put }) {
+        const { data:{code,data,total} } = yield call(usersService.fetch, { page });
+        console.log(code,data,total);
+        yield put({ type: 'save', payload: { data, total, page: parseInt(page, 10) } });
+      },
+    },
+    subscriptions: {
+      setup({ dispatch, history }) {
+        return history.listen(({ pathname, query }) => {
+          if (pathname === '/users') {
+            dispatch({ type: 'fetch', payload: query });
+          }
+        });
+      },
+    }
+  };
   ```
+  - 添加用户界面，关联model
+  使用`dva g component Users/Users`添加Users组件
+  修改Users组件：
+  ```JavaScript
+  import React from 'react';
+  import { connect } from 'dva';
+  import { Table, Pagination, Popconfirm } from 'antd';
+  import styles from './Users.css';
+
+  const PAGE_SIZE = 10;
+  function Users({ list: dataSource, total, page: current }) {
+    function deleteHandler(id) {
+      console.warn(`TODO: ${id}`);
+    }
+    const columns = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a href="">{text}</a>,
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+      },
+      {
+        title: 'Adress',
+        dataIndex: 'adress',
+        key: 'adress',
+      },
+      {
+        title: 'Operation',
+        key: 'operation',
+        render: (text, { id }) => (
+          <span className={styles.operation}>
+            <a href="">Edit </a>
+            <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
+              <a href="">Delete</a>
+            </Popconfirm>
+          </span>
+        ),
+      },
+    ];
+    return (
+      <div className={styles.normal}>
+        <div>
+          <Table
+            columns={columns}
+            dataSource={dataSource}
+            rowKey={record => record.id}
+            pagination={false}
+          />
+          <Pagination
+            className="ant-table-pagination"
+            total={total}
+            current={current}
+            pageSize={PAGE_SIZE}
+          />
+        </div>
+      </div>
+    );
+  }
+  function mapStateToProps(state) {
+    const { list, total, page } = state.users;
+    return {
+      list,
+      total,
+      page,
+    };
+  }
+  export default connect(mapStateToProps)(Users);
+  ```
+  我们使用了ant-desin 中的 Table, Pagination, Popconfirm组件，这些组件，在ant desin官网能找到详细的API以及demo，基本上毫无学习成本。
+  上面我们通过mapStateToProps取到了redux中的state值。
+  接下来在路由组件中把我们的Users组件写进去，整个流程就跑通了。
+  ```JavaScript
+  import React from 'react';
+  import { connect } from 'dva';
+  import UsersComponent  from '../components/Users/Users';
+  import styles from './Users.css';
+
+  function Users() {
+    return (
+      <UsersComponent ></UsersComponent>
+    );
+  }
+  export default connect()(Users);
+  ```
+  运行`npm start`看看成果吧：
+  ![](../../assets/demo20170425172911.png)
