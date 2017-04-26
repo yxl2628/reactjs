@@ -562,3 +562,5 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(Users);
 ```
+
+至此，我们的demo就完成了，启动`npm start`看看效果吧。
