@@ -398,3 +398,167 @@
 
   export default connect()(IndexPage);
   ```
+### 处理Loading
+
+  dva 有一个管理 effects 执行的 hook，并基于此封装了 dva-loading 插件。通过这个插件，我们可以不必一遍遍地写 showLoading 和 hideLoading，当发起请求时，插件会自动设置数据里的 loading 状态为 true 或 false 。然后我们在渲染 components 时绑定并根据这个数据进行渲染。
+
+  首先安装dva-loading:`npm install dva-loading --save`
+
+  完成后，在index.js中引入：
+  ```JavaScript
+  import dva from 'dva';
+  import createLoading from 'dva-loading';
+  import './index.css';
+
+  // 1. Initialize
+  const app = dva();
+  // 2. Plugins
+  app.use(createLoading());
+  // 3. Model
+  app.model(require('./models/users'));
+  // 4. Router
+  app.router(require('./router'));
+  // 5. Start
+  app.start('#root');
+  ```
+  在Users组件中，把loading加载进去：
+  ```JavaScript
+  import React from 'react';
+  import { connect } from 'dva';
+  import { Table, Pagination, Popconfirm } from 'antd';
+  import styles from './Users.css';
+
+  const PAGE_SIZE = 10;
+  function Users({ list: dataSource,loading, total, page: current }) {
+    function deleteHandler(id) {
+      console.warn(`TODO: ${id}`);
+    }
+    const columns = [
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a href="">{text}</a>,
+      },
+      {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+      },
+      {
+        title: 'Adress',
+        dataIndex: 'adress',
+        key: 'adress',
+      },
+      {
+        title: 'Operation',
+        key: 'operation',
+        render: (text, { id }) => (
+          <span className={styles.operation}>
+            <a href="">Edit </a>
+            <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
+              <a href="">Delete</a>
+            </Popconfirm>
+          </span>
+        ),
+      },
+    ];
+    return (
+      <div className={styles.normal}>
+        <div>
+          <Table columns={columns} dataSource={dataSource} loading={loading} rowKey={record => record.id} pagination={false} />
+          <Pagination className="ant-table-pagination" total={total} current={current} pageSize={PAGE_SIZE} />
+        </div>
+      </div>
+    );
+  }
+  function mapStateToProps(state) {
+    const { list, total, page } = state.users;
+    return {
+      loading: state.loading.models.users,
+      list,
+      total,
+      page,
+    };
+  }
+  export default connect(mapStateToProps)(Users);
+  ```
+  运行看看，是否加载Users的时候，有了loading状态了？
+
+### 处理分页
+
+处理分页有两个思路：
+
+发 action，请求新的分页数据，保存到 model，然后自动更新页面
+切换路由 (由于之前监听了路由变化，所以后续的事情会自动处理)
+我们用的是思路 2 的方式，好处是用户可以直接访问到 page 2 或其他页面。
+
+只需要修改组件Users即可：
+```JavaScript
+import React from 'react';
+import { connect } from 'dva';
+import { routerRedux } from 'dva/router';
+import { Table, Pagination, Popconfirm } from 'antd';
+import styles from './Users.css';
+
+const PAGE_SIZE = 10;
+function Users({ dispatch, list: dataSource,loading, total, page: current }) {
+  function deleteHandler(id) {
+    console.warn(`TODO: ${id}`);
+  }
+  function pageChangeHandler(page) {
+     dispatch(routerRedux.push({
+      pathname: '/users',
+      query: { page },
+     }));
+   }
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a href="">{text}</a>,
+    },
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Adress',
+      dataIndex: 'adress',
+      key: 'adress',
+    },
+    {
+      title: 'Operation',
+      key: 'operation',
+      render: (text, { id }) => (
+        <span className={styles.operation}>
+          <a href="">Edit </a>
+          <Popconfirm title="Confirm to delete?" onConfirm={deleteHandler.bind(null, id)}>
+            <a href="">Delete</a>
+          </Popconfirm>
+        </span>
+      ),
+    },
+  ];
+  return (
+    <div className={styles.normal}>
+      <div>
+        <Table columns={columns} dataSource={dataSource} loading={loading} rowKey={record => record.id} pagination={false} />
+        <Pagination className="ant-table-pagination" total={total} current={current} pageSize={PAGE_SIZE} onChange={pageChangeHandler} />
+      </div>
+    </div>
+  );
+}
+function mapStateToProps(state) {
+  const { list, total, page } = state.users;
+  return {
+    loading: state.loading.models.users,
+    list,
+    total,
+    page,
+  };
+}
+export default connect(mapStateToProps)(Users);
+```

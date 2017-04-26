@@ -10,6 +10,6 @@ export default {
           'adress':'@city(true)',
           'zip':'@zip'
       }],
-      total:58
+      total:'@integer(10, 100)'
   })
 };
