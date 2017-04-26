@@ -15,7 +15,6 @@ export default {
   effects: {
     *fetch({ payload: { page = 1 } }, { call, put }) {
       const { data:{code,data,total} } = yield call(usersService.fetch, { page });
-      console.log(code,data,total);
       yield put({ type: 'save', payload: { data, total, page: parseInt(page, 10) } });
     },
   },

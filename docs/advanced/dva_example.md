@@ -168,7 +168,6 @@
     effects: {
       *fetch({ payload: { page = 1 } }, { call, put }) {
         const { data:{code,data,total} } = yield call(usersService.fetch, { page });
-        console.log(code,data,total);
         yield put({ type: 'save', payload: { data, total, page: parseInt(page, 10) } });
       },
     },
@@ -183,7 +182,7 @@
     }
   };
   ```
-  - 添加用户界面，关联model
+  添加用户界面，关联model
   使用`dva g component Users/Users`添加Users组件
   修改Users组件：
   ```JavaScript
@@ -256,6 +255,13 @@
   }
   export default connect(mapStateToProps)(Users);
   ```
+  ```css
+  .normal {
+  }
+  .operation a{
+    margin-left: 10px;
+  }
+  ```
   我们使用了ant-desin 中的 Table, Pagination, Popconfirm组件，这些组件，在ant desin官网能找到详细的API以及demo，基本上毫无学习成本。
   上面我们通过mapStateToProps取到了redux中的state值。
   接下来在路由组件中把我们的Users组件写进去，整个流程就跑通了。
@@ -274,3 +280,121 @@
   ```
   运行`npm start`看看成果吧：
   ![](../../assets/demo20170425172911.png)
+
+### 添加layout
+
+  现在是用户列表页面，我们还需要一个首页，ant design 给我们提供了layout布局，我们可以直接引入使用。
+  ```JavaScript
+  import React from 'react';
+  import styles from './MainLayout.css';
+  import Header from './Header';
+
+  function MainLayout({ children, location }) {
+    return (
+      <div className={styles.normal}>
+        <Header location={location} />
+        <div className={styles.content}>
+          <div className={styles.main}>
+            {children}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  export default MainLayout;
+  ```
+  ```css
+  .normal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+  }
+
+  .main {
+    padding: 0 8px;
+    flex: 1 0 auto;
+  }
+  ```
+  我们将导航部分提炼出来，单独写一个组件，来嵌套到Layout中：
+  ```JavaScript
+  import React from 'react';
+  import { Menu, Icon } from 'antd';
+  import { Link } from 'dva/router';
+
+  function Header({ location }) {
+    return (
+      <Menu
+        selectedKeys={[location.pathname]}
+        mode="horizontal"
+        theme="dark"
+      >
+        <Menu.Item key="/">
+          <Link to="/"><Icon type="home" />Home</Link>
+        </Menu.Item>
+        <Menu.Item key="/users">
+          <Link to="/users"><Icon type="bars" />Users</Link>
+        </Menu.Item>
+        <Menu.Item key="/404">
+          <Link to="/page-you-dont-know"><Icon type="frown-circle" />404</Link>
+        </Menu.Item>
+        <Menu.Item key="/antd">
+          <a href="https://github.com/dvajs/dva" target="_blank">dva</a>
+        </Menu.Item>
+      </Menu>
+    );
+  }
+
+  export default Header;
+  ```
+  完成Layout组件之后，我们就可以把IndexPage和Users添加到MainLayout中了：
+  ```JavaScript
+  import React from 'react';
+  import { connect } from 'dva';
+  import styles from './Users.css';
+  import UsersComponent from '../components/Users/Users';
+  import MainLayout from '../components/MainLayout/MainLayout';
+
+  function Users({ location }) {
+    return (
+      <MainLayout location={location}>
+        <div className={styles.normal}>
+          <UsersComponent />
+        </div>
+      </MainLayout>
+    );
+  }
+
+  export default connect()(Users);
+  ```
+  ```JavaScript
+  import React from 'react';
+  import { connect } from 'dva';
+  import styles from './IndexPage.css';
+  import MainLayout from '../components/MainLayout/MainLayout';
+
+  function IndexPage({ location }) {
+    return (
+      <MainLayout location={location}>
+        <div className={styles.normal}>
+          <h1 className={styles.title}>Yay! Welcome to dva!</h1>
+          <div className={styles.welcome} />
+          <ul className={styles.list}>
+            <li>To get started, edit <code>src/index.js</code> and save to reload.</li>
+            <li><a href="https://github.com/dvajs/dva-docs/blob/master/v1/en-us/getting-started.md">Getting Started</a></li>
+          </ul>
+        </div>
+      </MainLayout>
+    );
+  }
+
+  IndexPage.propTypes = {
+  };
+
+  export default connect()(IndexPage);
+  ```
