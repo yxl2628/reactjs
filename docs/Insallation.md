@@ -1,8 +1,11 @@
 ### 安装node.js
-一直以来，我们深深喜爱着的方式，也是习惯了的方式是需要哪个js，就在页面`<script src="xx.js"></script>`，然后需要把js引入到文档底部来加速渲染页面。    
+一直以来，我们深深喜爱着的方式，也是习惯了的方式是需要哪个js，就在页面`<script src="xx.js"></script>`，然后需要把js引入到文档底部来加速渲染页面。  
+
 所以小伙伴们肯定希望学习react从引入react.js开始，然后自己写个index.js或者demo.js来引入。我们还得引入`<script
 src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>`，但自己引入的index.js需要这么写`<script type="text/babel" src="index.js">`这么做是希望浏览器能够认识我们接下来要学习的react的写法。他加入的jsx的语法糖，含有es6的招式，所以旧版本浏览器不认识。react没有ajax功能，所以我们想引入jQuery.js，我们还想引入bootstrap.css。    
+
 是不是发现学习react也挺简单的，其实不然。你会发现还是跑不起来，因为他需要服务器支撑，我们再把搭建好的react demo放到tomcat下面，然后就问localhost:8080/reactdemo/index.html 然后就跑起来了。     
+
 虽然跑起来了，以上的我们留恋的学习姿势是错误的，是不符合当下形式的。    
 
 使用node.js，我们就可以使用标准的软件开发流程：
