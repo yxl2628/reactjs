@@ -49,3 +49,8 @@
 - [完成User组件](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/dva_example.md#完成User组件)
 - [添加layout](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/dva_example.md#添加layout)
 - [处理分页](https://github.com/yxl2628/reactjs/blob/master/docs/advanced/dva_example.md#处理分页)
+ 
+### dva完整示例代码
+> 写了一个基本上涵盖了所有dva知识的完整示例，不过如果想要读懂这个示例，上面的那个入门实战还是要学习的，下面的这个示例代码，是公司要做的新项目，我搭建的框架，基本上涵盖了国际化解决方案、完整的mock数据模拟、动态路由加载、统一错误处理等项目中会遇到的各种各样的需求。
+
+【[查看示例代码](https://github.com/yxl2628/dva)】
