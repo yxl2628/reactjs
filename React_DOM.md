@@ -16,7 +16,7 @@
 比较innerHTML 和Virtual DOM 的重绘过程如下：
 
 > innerHTML: render html string + 重新创建所有 DOM 元素  
-Virtual DOM: render Virtual DOM + diff + 必要的 DOM 更新
+Virtual DOM: render Virtual DOM + diff + 必要的 DOM 更新 
 
 和 DOM 操作比起来，js 计算是非常便宜的。Virtual DOM render + diff 显然比渲染 html 字符串要慢，但是，它依然是纯 js 层面的计算，比起后面的 DOM 操作来说，依然便宜了太多。当然，曾有人做过验证说React的性能不如直接操作真实DOM，代码如下：
 ``` JavaScript
