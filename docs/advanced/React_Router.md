@@ -291,18 +291,8 @@ export default Form;
 
 ### 路由的钩子
 每个路由都有Enter和Leave钩子，用户进入或离开该路由时触发。
-```javascript
-<Route path="about" component={About} />
-<Route path="inbox" component={Inbox}>
-  <Redirect from="messages/:id" to="/messages/:id" />
-</Route>
-```
-上述代码中，如果用户离开/about 进去/repos，会依次触发以下钩子
-/messages/:id的onLeave
-/inbox的onLeave
-/about的onEnter
 
-onEnter钩子可以用来做认证。
+Enter钩子可以用来做认证。
 ```javascript
 const isLogin = false;
 const requireAuth = (nextState, replace) => {
@@ -320,7 +310,45 @@ ReactDOM.render((
   </Router>
 ), document.getElementById('root'));
 ```
-下面是一个onLeave的应用，当用户离开一个路径的时候，跳出一个提示框，要求用户确认是否离开。
+下面是一个Leave钩子的应用，当用户离开一个路径的时候，跳出一个提示框，要求用户确认是否离开。
+```javascript
+import React from 'react'
+import { hashHistory } from 'react-router'
 
+class Form extends React.Component {
+  handleSubmit = (event) => {
+    event.preventDefault()
+    const userName = event.target.elements[0].value
+    const repo = event.target.elements[1].value
+    const path = `/repos/${userName}/${repo}`
+    hashHistory.push(path);
+  }
+  componentWillMount(){
+        this.context.router.setRouteLeaveHook(
+            this.props.route,
+            this.routeWillLeave
+        )
+    }
+
+    routeWillLeave(nextLocation){
+        return `是否确定离开本页面到 ${nextLocation.pathname}`;
+    }
+  render(){
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="userName"/>
+            <input type="text" placeholder="repo"/>
+            <button type="submit">Go</button>
+        </form>
+      </div>
+    )
+  }
+}
+Form.contextTypes = {
+    router: React.PropTypes.object.isRequired
+};
+export default Form;
+```
 ***
 [查看示例代码](https://github.com/yxl2628/reactjs/blob/master/code/react_router)
